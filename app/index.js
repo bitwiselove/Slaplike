@@ -5,14 +5,12 @@ var Search = {
   results: m.prop(false),
   search: function(e) {
     e.preventDefault();
-    var artist = Search.term();
 
-    m.request({method: 'GET', url: '/similar/' + artist}).then(body => {
+    m.request({method: 'GET', url: '/similar/' + Search.term()}).then(body => {
       Search.results(body.similarartists.artist);
     }).then(m.redraw);
   },
   view: function() {
-    console.log(this.results());
     var results = this.results() ? this.results() : [];
 
     return m('div', [
@@ -21,8 +19,16 @@ var Search = {
         m('input', {onchange: m.withAttr('value', this.term), value: this.term()}),
         m('button[type=button]', {onclick: this.search.bind(this)}, 'Search'),
       ]),
-      results.map(result => {
-        return m('div', result.name);
+      results.filter(result => {
+        return result.image[2]['#text'];
+      }).map(result => {
+        return m('div', [
+          m('img', {src: result.image[2]['#text']}),
+          m('strong', result.name),
+          m('span', `Match: ${result.match}`)
+        ]);
+
+        // return m('div', JSON.stringify(result, null, 4));
       })
     ]);
   }
