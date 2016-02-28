@@ -1,0 +1,27 @@
+{
+  "name": "slaplike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitwiselove/Slaplike.git"
+  },
+  "author": "Brandon Newton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bitwiselove/Slaplike/issues"
+  },
+  "homepage": "https://github.com/bitwiselove/Slaplike#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mithril": "^0.2.2-rc.1",
+    "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "webpack": "^1.12.14"
+  }
+}
