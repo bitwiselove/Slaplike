@@ -1,5 +1,6 @@
 var fs = require('fs');
 var express = require('express');
+var bodyParser = require('body-parser');
 var request = require('request');
 var path = require('path');
 var app = express();
@@ -22,6 +23,7 @@ function lastFm(method, args) {
   return `http://ws.audioscrobbler.com/2.0/?method=${method}&api_key=${API_KEY}&format=json`;
 }
 
+app.use(bodyParser.json());
 app.use(express.static('dist'));
 
 app.get('/', (req, res) => {
@@ -30,6 +32,12 @@ app.get('/', (req, res) => {
 
 app.get('/similar/:artist', (req, res) => {
   request(lastFm(`artist.getSimilar&artist=${req.params.artist}`), (error, response, body) => {
+    res.send(body);
+  });
+});
+
+app.post('/tracks', (req, res) => {
+  request(lastFm(`artist.getTopTracks&artist=${req.body.artist}&limit=3`), (error, response, body) => {
     res.send(body);
   });
 });
